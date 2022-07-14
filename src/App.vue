@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>好客租房</h1>
+    <!-- 一级路由出口 -->
+    <router-view></router-view>
   </div>
 </template>
 
