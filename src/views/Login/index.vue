@@ -41,20 +41,31 @@ export default {
   },
   methods: {
     onBackPageMy() {
-      this.$router.back()
+      this.$router.replace('/my')
     },
     async onSubmit() {
       const res = await userLogin(this.username, this.password)
-      console.log(res)
       if (res.data.status === 200) {
-        this.$toast.success('登录成功')
-        localStorage.setItem('token', res.data.body.token)
-      } else if (res.data.status === 401) {
-        this.$toast('您的账号或密码错误')
-      } else if (this.username !== /^[a-zA-Z0-9]{5,8}$/) {
-        this.$toast('用户名格式5-8位的字母和数字')
+        // 保存token
+        console.log(this.$store)
+        this.$store.commit('setUser', res.data.body.token)
+        // 登录成功 跳转页面
+        this.$toast.success({
+          message: '登录成功',
+          duration: 1000,
+          // 关闭时的回调函数
+          onClose: () => {
+            // 路由跳转
+            this.$router.push({ path: '/user' })
+          }
+        })
+      } else if (
+        res.data.status === 401 ||
+        this.username !== /^[a-zA-Z0-9]{5,8}$/
+      ) {
+        this.$toast(res.data.description)
       } else {
-        this.$toast.fail('登录异常')
+        this.$toast.fail(res.data.description)
       }
     }
   }
