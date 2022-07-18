@@ -47,7 +47,6 @@ export default {
       const res = await userLogin(this.username, this.password)
       if (res.data.status === 200) {
         // 保存token
-        console.log(this.$store)
         this.$store.commit('setUser', res.data.body.token)
         // 登录成功 跳转页面
         this.$toast.success({
@@ -56,7 +55,7 @@ export default {
           // 关闭时的回调函数
           onClose: () => {
             // 路由跳转
-            this.$router.push({ path: '/user' })
+            this.$router.push({ path: '/my' })
           }
         })
       } else if (

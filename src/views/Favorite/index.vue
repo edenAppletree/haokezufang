@@ -12,7 +12,7 @@
       v-for="(item, index) in list"
       :key="index"
       class="list"
-      @click="detailFn"
+      @click="detailFn(item.houseCode)"
     >
       <van-card
         :desc="item.desc"
@@ -30,13 +30,11 @@
         <i>元/月</i>
       </span>
     </div>
-    <!-- 三级路由出口 -->
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { favorate } from '@/api/favorate'
+import { favorite } from '@/api/favorite'
 export default {
   data() {
     return {
@@ -45,19 +43,26 @@ export default {
   },
   async created() {
     try {
-      const res = await favorate(this.$store.state.user)
+      const res = await favorite(this.$store.state.user)
       this.list = res.data.body
-      console.log(res.data.body)
+      console.log(this.list)
     } catch (e) {
-      console.log(e.message)
+      this.$toast.fail('加载失败')
     }
   },
   methods: {
     onClickLeft() {
-      this.$router.back()
+      this.$router.push('/my')
     },
-    detailFn() {
-      this.$router.replace('/favorate/details')
+    detailFn(code) {
+      const index = this.list.findIndex((item) => item.houseCode === code)
+      console.log(index)
+      this.$router.push({
+        path: '/details',
+        query: {
+          id: code
+        }
+      })
     }
   }
 }
