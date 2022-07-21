@@ -9,11 +9,8 @@ export const favorite = (token) => {
   })
 }
 
-export const getHouseDetail = (id) => {
+export const getHouseDetail = (code) => {
   return request({
-    url: '/houses/{id}',
-    params: {
-      id
-    }
+    url: `/houses/${code}`
   })
 }

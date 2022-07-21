@@ -194,7 +194,7 @@ export default {
   },
   methods: {
     onClickLeft() {
-      this.$router.push('/favorite')
+      this.$router.go(-1)
     },
     async getHouseDetail() {
       // 获取从列表页传过来的houseCode码

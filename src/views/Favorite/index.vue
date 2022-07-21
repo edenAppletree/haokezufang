@@ -54,13 +54,11 @@ export default {
     onClickLeft() {
       this.$router.push('/my')
     },
-    detailFn(code) {
-      const index = this.list.findIndex((item) => item.houseCode === code)
-      console.log(index)
+    detailFn(houseCode) {
       this.$router.push({
         path: '/details',
         query: {
-          id: code
+          id: houseCode
         }
       })
     }

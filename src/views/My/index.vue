@@ -64,11 +64,9 @@ export default {
           message: '是否确定退出？'
         })
         .then(() => {
-          // localStorage.clear()
           this.$store.commit('setUser', '')
         })
         .catch(() => {
-          // on cancel
         })
     },
     // 点击进入我的收藏
@@ -91,10 +89,9 @@ export default {
       if (this.isLogin) {
         try {
           const res = await getUserInfo()
-          // console.log(res)
           this.userInfo = res.data.body
         } catch (e) {
-          this.$router.fail('请重新登录')
+          this.$toast.fail('请重新登录')
         }
       }
     }
