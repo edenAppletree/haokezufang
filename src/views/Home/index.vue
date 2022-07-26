@@ -9,7 +9,7 @@
           placeholder="请输入小区或地址"
         />
         <!-- 下箭头 -->
-        <span class="iconfont icon-caret-bottom"></span>
+        <span class="iconfont icon-caret-bottom" @click="toCityList"></span>
         <!-- 搜索图标 -->
         <van-icon name="search" />
       </van-cell-group>
@@ -105,6 +105,10 @@ export default {
     async getGroups() {
       const res = await getGroups()
       this.groupsList = res.data.body
+    },
+    // 点击进入城市列表
+    toCityList() {
+      this.$router.push('/citylist')
     },
     findHouse() {
       this.$router.push('/find')
